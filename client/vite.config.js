@@ -9,7 +9,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://store-rating-app-1-m6x4.onrender.com',
+        target: 'https://store-rating-app-1-m6x4.onrender.com/',
         changeOrigin: true
       }
     }
