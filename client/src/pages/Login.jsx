@@ -17,7 +17,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, data, {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, data, {
         withCredentials: true,
       });
 
