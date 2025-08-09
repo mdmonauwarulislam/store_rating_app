@@ -35,37 +35,34 @@ A comprehensive web application that allows users to submit ratings for stores r
 ### Installation
 
 1. **Clone the repository**
-   \`\`\`bash
+   ```bash
    git clone [<repository-url>](https://github.com/mdmonauwarulislam/store_rating_app.git)
    cd store-rating-app
-   \`\`\`
+ 
 
 2. **Install dependencies**
-   \`\`\`bash
+   ```bash
    npm run setup
-   \`\`\`
+  
 
 3. **Database Setup**
-   \`\`\`bash
+   ```bash
    cd backend
    # Update DATABASE_URL in .env file
    npm run db:push
    npm run db:generate
-   \`\`\`
 
 4. **Environment Variables**
    
    Create `backend/.env`:
-   \`\`\`env
+   ```bash
    DATABASE_URL="postgresql://username:password@localhost:5432/store_rating_db"
    JWT_SECRET="your-super-secret-jwt-key-here"
    PORT=5000
-   \`\`\`
 
 5. **Start the application**
-   \`\`\`bash
+   ```bash
    npm run dev
-   \`\`\`
 
    This will start:
    - Backend server on http://localhost:5000
@@ -136,7 +133,7 @@ A comprehensive web application that allows users to submit ratings for stores r
 ## Development
 
 ### Project Structure
-\`\`\`
+```
 store-rating-app/
 ├── backend/
 │   ├── prisma/
@@ -151,7 +148,7 @@ store-rating-app/
 │   │   └── main.jsx
 │   └── index.html
 └── package.json
-\`\`\`
+```
 
 ### Available Scripts
 - `npm run dev` - Start both frontend and backend
