@@ -5,6 +5,9 @@ import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || '/api'; // Use full URL in production, /api for local
+
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -14,9 +17,11 @@ const Login = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post('/api/auth/login', data);
-      const { token, user } = response.data;
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, data, {
+        withCredentials: true,
+      });
 
+      const { token, user } = response.data;
       login(token, user);
       toast.success('Login successful!');
 

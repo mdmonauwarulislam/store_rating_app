@@ -5,6 +5,8 @@ import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -14,12 +16,18 @@ const Register = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post('/api/auth/register', data);
-      const { token, user } = response.data;
+      const response = await axios.post(`${API_URL}/api/auth/register`, data, {
+        withCredentials: true
+      });
 
+      const { token, user } = response.data;
       login(token, user);
       toast.success('Registration successful!');
-      navigate('/user-dashboard');
+
+      if (user.role === 'ADMIN') navigate('/dashboard');
+      else if (user.role === 'STORE_OWNER') navigate('/store-dashboard');
+      else navigate('/user-dashboard');
+
     } catch (error) {
       if (error.response?.data?.errors) {
         error.response.data.errors.forEach(err => {
@@ -36,10 +44,13 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
       <div className="w-full max-w-md space-y-8">
-        <h2 className="text-center text-3xl font-bold text-gray-900">Create your account</h2>
+        <h2 className="text-center text-3xl font-bold text-gray-900">
+          Create your account
+        </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
+
             {/* Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700">Full Name</label>
@@ -47,7 +58,7 @@ const Register = () => {
                 type="text"
                 {...register('name', {
                   required: 'Name is required',
-                  minLength: { value: 20, message: 'Minimum 20 characters' },
+                  minLength: { value: 3, message: 'Minimum 3 characters' },
                   maxLength: { value: 60, message: 'Maximum 60 characters' },
                 })}
                 placeholder="Enter your full name"

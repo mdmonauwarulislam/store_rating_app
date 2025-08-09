@@ -4,6 +4,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
+
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +29,7 @@ const ManageUsers = () => {
       params.append("sortBy", sortBy);
       params.append("sortOrder", sortOrder);
 
-      const response = await axios.get(`/api/users?${params}`);
+      const response = await axios.get(`${API_BASE}/api/users?${params}`);
       setUsers(response.data);
     } catch (error) {
       toast.error("Failed to fetch users");
@@ -37,7 +40,7 @@ const ManageUsers = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post("/api/users", data);
+      await axios.post(`${API_BASE}/api/users`, data);
       toast.success("User created successfully!");
       setShowAddModal(false);
       reset();

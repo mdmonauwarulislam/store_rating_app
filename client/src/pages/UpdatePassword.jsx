@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+const API_BASE = import.meta.env.VITE_API_URL;
+
 
 const UpdatePassword = () => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ const UpdatePassword = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await axios.put('/api/auth/update-password', data);
+      await axios.put(`${API_BASE}/api/auth/update-password`, data);
       toast.success('Password updated successfully!');
       reset();
     } catch (error) {

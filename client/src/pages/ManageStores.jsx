@@ -4,6 +4,9 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
+
 const ManageStores = () => {
   const [stores, setStores] = useState([]);
   const [storeOwners, setStoreOwners] = useState([]);
@@ -26,7 +29,7 @@ const ManageStores = () => {
       params.append('sortBy', sortBy);
       params.append('sortOrder', sortOrder);
 
-      const response = await axios.get(`/api/stores?${params}`);
+      const response = await axios.get(`${API_BASE}/api/stores?${params}`);
       setStores(response.data);
     } catch {
       toast.error('Failed to fetch stores');
@@ -37,7 +40,7 @@ const ManageStores = () => {
 
   const fetchStoreOwners = async () => {
     try {
-      const response = await axios.get('/api/users?role=STORE_OWNER');
+      const response = await axios.get(`${API_BASE}/api/users?role=STORE_OWNER`);
       const availableOwners = response.data.filter(owner => !owner.store);
       setStoreOwners(availableOwners);
     } catch {
@@ -47,7 +50,7 @@ const ManageStores = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post('/api/stores', data);
+      await axios.post(`${API_BASE}/api/stores`, data);
       toast.success('Store created successfully!');
       setShowAddModal(false);
       reset();

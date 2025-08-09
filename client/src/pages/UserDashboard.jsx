@@ -3,6 +3,9 @@ import { Search, Star, MapPin, Store } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
+
 const UserDashboard = () => {
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +24,7 @@ const UserDashboard = () => {
       params.append('sortBy', sortBy);
       params.append('sortOrder', sortOrder);
 
-      const response = await axios.get(`/api/stores?${params}`);
+      const response = await axios.get(`${API_BASE}/api/stores?${params}`);
       setStores(response.data);
     } catch (error) {
       toast.error('Failed to fetch stores');
@@ -32,7 +35,7 @@ const UserDashboard = () => {
 
   const submitRating = async (storeId, rating) => {
     try {
-      await axios.post('/api/ratings', { storeId, rating });
+      await axios.post(`${API_BASE}/api/ratings`, { storeId, rating });
       toast.success('Rating submitted successfully!');
       fetchStores();
     } catch (error) {

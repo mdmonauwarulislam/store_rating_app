@@ -3,6 +3,8 @@ import { Star, Users, Store } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
 const StoreOwnerDashboard = () => {
   const [storeData, setStoreData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ const StoreOwnerDashboard = () => {
 
   const fetchStoreData = async () => {
     try {
-      const response = await axios.get("/api/ratings/my-store");
+      const response = await axios.get(`${API_BASE}/api/ratings/my-store`);
       setStoreData(response.data);
     } catch (error) {
       toast.error("Failed to fetch store data");
