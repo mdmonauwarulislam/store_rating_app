@@ -36,7 +36,7 @@ A comprehensive web application that allows users to submit ratings for stores r
 
 1. **Clone the repository**
    \`\`\`bash
-   git clone https://github.com/mdmonauwarulislam/store_rating_app.git
+   git clone [<repository-url>](https://github.com/mdmonauwarulislam/store_rating_app.git)
    cd store-rating-app
    \`\`\`
 
